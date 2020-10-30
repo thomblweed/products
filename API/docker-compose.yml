@@ -1,0 +1,18 @@
+version: '3'
+services:
+  products-api:
+    container_name: products-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '5000:5000'
+    expose:
+      - '5000'
+    depends_on:
+      - products-mongo
+  products-mongo:
+    container_name: products-mongo
+    image: mongo
+    ports:
+      - '27017:27017'
