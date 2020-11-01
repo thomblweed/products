@@ -1,3 +1,4 @@
 .vscode
-API/obj/
-API/bin/
+obj
+bin
+*.db
