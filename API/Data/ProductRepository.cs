@@ -15,9 +15,17 @@ namespace API.Data
             _context = context;
         }
 
-        public Task<Product> CreateProductAsync()
+        public async Task CreateProductAsync(string name, string price)
         {
-            throw new System.NotImplementedException();
+            Product newProduct = new Product()
+            {
+                Id = 0,
+                Name = name,
+                Price = price
+            };
+            _context.Products.Add(newProduct);
+
+            await _context.SaveChangesAsync();
         }
 
         public Task<Product> DeleteProductByIdAsync(int productId)

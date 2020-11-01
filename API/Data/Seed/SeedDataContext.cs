@@ -13,7 +13,32 @@ namespace API.Data.Seed
         {
             ILogger<SeedDataContext> logger = loggerFactory.CreateLogger<SeedDataContext>();
 
-            List<Product> products = new List<Product>
+            try
+            {
+                if (context.Products.Any())
+                {
+                    context.Products.RemoveRange(context.Products);
+                }
+
+                List<Product> products = GenerateInitialProductData();
+
+                foreach (Product product in products)
+                {
+                    context.Products.Add(product);
+                }
+
+                await context.SaveChangesAsync();
+                logger.LogInformation("Data seeded successfully");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+            }
+        }
+
+        private static List<Product> GenerateInitialProductData()
+        {
+            return new List<Product>
             {
                 new Product
                 {
@@ -34,23 +59,6 @@ namespace API.Data.Seed
                     Price = "19.95"
                 }
             };
-
-            try
-            {
-                if (!context.Products.Any())
-                {
-                    foreach (Product product in products)
-                    {
-                        context.Products.Add(product);
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-            }
         }
     }
 }
