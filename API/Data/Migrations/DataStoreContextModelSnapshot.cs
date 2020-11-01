@@ -22,9 +22,11 @@ namespace API.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Price")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

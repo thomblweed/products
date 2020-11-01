@@ -12,8 +12,8 @@ namespace API.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
-                    Price = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false),
+                    Price = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

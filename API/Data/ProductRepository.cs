@@ -32,7 +32,9 @@ namespace API.Data
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
-            return await _context.Products.ToListAsync();
+            List<Product> products = await _context.Products.ToListAsync();
+
+            return products;
         }
 
         public Task<Product> UpdateProductByIdAsync(int productId)

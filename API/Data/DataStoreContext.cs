@@ -1,3 +1,4 @@
+using System.Reflection;
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,5 +11,11 @@ namespace API.Data
         }
 
         public DbSet<Product> Products { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
+using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,9 +11,9 @@ namespace API.Controllers
     [Route("v1/[controller]")]
     public class ProductsController : ControllerBase
     {
-        private readonly ProductRepository _repository;
+        private readonly IProductRepository _repository;
 
-        public ProductsController(ProductRepository repository)
+        public ProductsController(IProductRepository repository)
         {
             _repository = repository;
         }
