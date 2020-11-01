@@ -19,7 +19,6 @@ namespace API.Data
         {
             Product newProduct = new Product()
             {
-                Id = 0,
                 Name = name,
                 Price = price
             };
@@ -33,9 +32,11 @@ namespace API.Data
             throw new System.NotImplementedException();
         }
 
-        public Task<Product> GetProductByIdAsync(int productId)
+        public async Task<Product> GetProductByIdAsync(int productId)
         {
-            throw new System.NotImplementedException();
+            Product product = await _context.Products.SingleOrDefaultAsync(p => p.Id == productId);
+
+            return product;
         }
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync()

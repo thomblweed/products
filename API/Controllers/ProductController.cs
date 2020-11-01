@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using API.DTO;
 using API.Entities;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,26 @@ namespace API.Controllers
             await _repository.CreateProductAsync(form.Name, form.Price);
 
             return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductDTO>> GetProduct(int id)
+        {
+            Product product = await _repository.GetProductByIdAsync(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            ProductDTO productDTO = new ProductDTO
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price.ToString("0.00")
+            };
+
+            return Ok(productDTO);
         }
     }
 }

@@ -24,6 +24,7 @@ namespace API
                 try
                 {
                     DataStoreContext dataStoreContext = services.GetRequiredService<DataStoreContext>();
+                    await dataStoreContext.Database.EnsureDeletedAsync();
                     await dataStoreContext.Database.MigrateAsync();
                     await SeedDataContext.SeedAsync(dataStoreContext, loggerFactory);
                 }
