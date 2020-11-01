@@ -44,19 +44,19 @@ namespace API.Data.Seed
                 {
                     Id = 1,
                     Name = "Lavender heart",
-                    Price = "9.25"
+                    Price = 9.25M
                 },
                 new Product
                 {
                     Id = 2,
                     Name = "Personalised cufflinks",
-                    Price = "45.00"
+                    Price = 45.00M
                 },
                 new Product
                 {
                     Id = 3,
                     Name = "Kids T-shirt",
-                    Price = "19.95"
+                    Price = 19.95M
                 }
             };
         }

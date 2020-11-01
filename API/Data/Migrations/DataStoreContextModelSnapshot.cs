@@ -25,9 +25,8 @@ namespace API.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Price")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

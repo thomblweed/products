@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Data;
+using API.Dtos;
 using API.Entities;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -19,11 +20,28 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts()
+        public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetProducts()
         {
             IReadOnlyList<Product> products = await _repository.GetProductsAsync();
 
-            return Ok(products);
+            if (products.Count < 1)
+            {
+                return NotFound();
+            }
+
+            List<ProductDto> productsDto = new List<ProductDto>();
+
+            foreach (Product product in products)
+            {
+                productsDto.Add(new ProductDto
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Price = product.Price.ToString("0.00")
+                });
+            }
+
+            return Ok(productsDto);
         }
     }
 }

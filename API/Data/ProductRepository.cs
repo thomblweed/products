@@ -15,7 +15,7 @@ namespace API.Data
             _context = context;
         }
 
-        public async Task CreateProductAsync(string name, string price)
+        public async Task CreateProductAsync(string name, decimal price)
         {
             Product newProduct = new Product()
             {

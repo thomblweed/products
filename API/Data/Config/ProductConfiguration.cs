@@ -10,7 +10,7 @@ namespace API.Data.Config
         {
             builder.Property(p => p.Id).IsRequired();
             builder.Property(p => p.Name).IsRequired();
-            builder.Property(p => p.Price).IsRequired();
+            builder.Property(p => p.Price).HasColumnType("decimal(18,2)").IsRequired();
         }
     }
 }
