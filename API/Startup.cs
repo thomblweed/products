@@ -20,6 +20,7 @@ namespace API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddControllers();
             services.AddDbContext<DataStoreContext>(action =>
@@ -28,6 +29,13 @@ namespace API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Products Api");
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
