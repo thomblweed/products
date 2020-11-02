@@ -2,7 +2,7 @@
 
 ## Clone
 
-git clone https://github.com/thomblweed/products
+`git clone https://github.com/thomblweed/products`
 
 ## Run and Test API
 
