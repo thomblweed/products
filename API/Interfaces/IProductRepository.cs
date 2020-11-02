@@ -9,7 +9,7 @@ namespace API.Interfaces
         Task<IReadOnlyList<Product>> GetProductsAsync();
         Task CreateProductAsync(string name, decimal price);
         Task<Product> GetProductByIdAsync(int productId);
-        Task<Product> UpdateProductByIdAsync(int productId);
+        Task UpdateProductAsync(Product product);
         Task<Product> DeleteProductByIdAsync(int productId);
     }
 }

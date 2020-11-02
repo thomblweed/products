@@ -44,5 +44,22 @@ namespace API.Controllers
 
             return Ok(productDTO);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProduct([FromForm] Product form, int id)
+        {
+            Product product = await _repository.GetProductByIdAsync(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            product.Name = form.Name;
+
+            await _repository.UpdateProductAsync(product);
+
+            return Ok();
+        }
     }
 }

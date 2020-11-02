@@ -46,9 +46,11 @@ namespace API.Data
             return products;
         }
 
-        public Task<Product> UpdateProductByIdAsync(int productId)
+        public async Task UpdateProductAsync(Product product)
         {
-            throw new System.NotImplementedException();
+            _context.Products.Update(product);
+
+            await _context.SaveChangesAsync();
         }
     }
 }
