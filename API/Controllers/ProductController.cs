@@ -18,8 +18,13 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateProduct([FromForm] Product form)
+        public async Task<ActionResult> CreateProduct([FromForm] ProductDetails form)
         {
+            if (form.Name == null || form.Price == 0)
+            {
+                return BadRequest();
+            }
+
             await _repository.CreateProductAsync(form.Name, form.Price);
 
             return Ok();
@@ -46,7 +51,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateProduct([FromForm] Product form, int id)
+        public async Task<ActionResult> UpdateProduct([FromForm] ProductDetails form, int id)
         {
             Product product = await _repository.GetProductByIdAsync(id);
 
@@ -54,6 +59,16 @@ namespace API.Controllers
             {
                 return NotFound();
             }
+
+            if (form.Name == null)
+            {
+                return BadRequest();
+            }
+
+            // This check only here to work with swagger calls,
+            // where price is sent with value other than 0.
+            // Postman tests send 0 so don't want to update price to 0.
+            if (form.Price != 0) product.Price = form.Price;
 
             product.Name = form.Name;
 

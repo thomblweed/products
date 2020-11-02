@@ -1,9 +1,7 @@
 namespace API.Entities
 {
-    public class Product
+    public class Product : ProductDetails
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public decimal Price { get; set; }
     }
 }
