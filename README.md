@@ -1,5 +1,9 @@
 # Products API
 
+## Clone
+
+git clone https://github.com/thomblweed/products
+
 ## Run and Test API
 
 To run the API locally please follow these steps;
