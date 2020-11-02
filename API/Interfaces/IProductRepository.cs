@@ -10,6 +10,6 @@ namespace API.Interfaces
         Task CreateProductAsync(string name, decimal price);
         Task<Product> GetProductByIdAsync(int productId);
         Task UpdateProductAsync(Product product);
-        Task<Product> DeleteProductByIdAsync(int productId);
+        Task DeleteProductAsync(Product product);
     }
 }

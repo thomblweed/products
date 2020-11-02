@@ -27,9 +27,11 @@ namespace API.Data
             await _context.SaveChangesAsync();
         }
 
-        public Task<Product> DeleteProductByIdAsync(int productId)
+        public async Task DeleteProductAsync(Product product)
         {
-            throw new System.NotImplementedException();
+            _context.Products.Remove(product);
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Product> GetProductByIdAsync(int productId)

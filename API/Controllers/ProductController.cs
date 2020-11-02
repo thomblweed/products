@@ -18,7 +18,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromForm] Product form)
+        public async Task<ActionResult> CreateProduct([FromForm] Product form)
         {
             await _repository.CreateProductAsync(form.Name, form.Price);
 
@@ -46,7 +46,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct([FromForm] Product form, int id)
+        public async Task<ActionResult> UpdateProduct([FromForm] Product form, int id)
         {
             Product product = await _repository.GetProductByIdAsync(id);
 
@@ -58,6 +58,21 @@ namespace API.Controllers
             product.Name = form.Name;
 
             await _repository.UpdateProductAsync(product);
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteProduct(int id)
+        {
+            Product product = await _repository.GetProductByIdAsync(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            await _repository.DeleteProductAsync(product);
 
             return Ok();
         }
