@@ -1,5 +1,3 @@
-# products
+# Products API
 
-## Run Api
-
-### 3 Hashes Test
+## Run
