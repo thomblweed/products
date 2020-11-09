@@ -1,11 +1,11 @@
-using API.Data;
+using API.Config;
 using API.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace API
 {
@@ -21,10 +21,11 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSwaggerGen();
-            services.AddScoped<IProductRepository, ProductRepository>();
+            services.Configure<ProductsStoreDatabaseSettings>(
+                _config.GetSection(nameof(ProductsStoreDatabaseSettings)));
+            services.AddSingleton<IProductsStoreDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<ProductsStoreDatabaseSettings>>().Value);
             services.AddControllers();
-            services.AddDbContext<DataStoreContext>(action =>
-                action.UseSqlite(_config.GetConnectionString("DefaultConnection")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -10,9 +10,9 @@ namespace API.Controllers
     [Route("v1/[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly IProductRepository _repository;
+        private readonly IProductService _repository;
 
-        public ProductController(IProductRepository repository)
+        public ProductController(IProductService repository)
         {
             _repository = repository;
         }
@@ -25,7 +25,13 @@ namespace API.Controllers
                 return BadRequest();
             }
 
-            await _repository.CreateProductAsync(form.Name, form.Price);
+            Product newProduct = new Product()
+            {
+                Name = form.Name,
+                Price = form.Price
+            };
+
+            await _repository.CreateProductAsync(newProduct);
 
             return Ok();
         }

@@ -13,9 +13,9 @@ namespace API.Controllers
     [Route("v1/[controller]")]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductRepository _repository;
+        private readonly IProductService _repository;
 
-        public ProductsController(IProductRepository repository)
+        public ProductsController(IProductService repository)
         {
             _repository = repository;
         }

@@ -1,9 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using API.Data;
-using API.Data.Seed;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -24,9 +22,9 @@ namespace API
                 try
                 {
                     DataStoreContext dataStoreContext = services.GetRequiredService<DataStoreContext>();
-                    await dataStoreContext.Database.EnsureDeletedAsync();
-                    await dataStoreContext.Database.MigrateAsync();
-                    await SeedDataContext.SeedAsync(dataStoreContext, loggerFactory);
+                    // await dataStoreContext.Database.EnsureDeletedAsync();
+                    // await dataStoreContext.Database.MigrateAsync();
+                    // await SeedDataContext.SeedAsync(dataStoreContext, loggerFactory);
                 }
                 catch (Exception exception)
                 {
