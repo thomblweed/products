@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using API.Data;
 using API.DTO;
 using API.Entities;
-using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -13,17 +12,17 @@ namespace API.Controllers
     [Route("v1/[controller]")]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductService _repository;
+        private readonly ProductService _productService;
 
-        public ProductsController(IProductService repository)
+        public ProductsController(ProductService productService)
         {
-            _repository = repository;
+            _productService = productService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<ProductDTO>>> GetProducts()
         {
-            IReadOnlyList<Product> products = await _repository.GetProductsAsync();
+            IReadOnlyList<Product> products = await _productService.GetProductsAsync();
 
             if (products.Count < 1)
             {

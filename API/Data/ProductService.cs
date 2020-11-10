@@ -15,7 +15,7 @@ namespace API.Data
             MongoClient client = new MongoClient(settings.ConnectionString);
             IMongoDatabase database = client.GetDatabase(settings.DatabaseName);
 
-            _products = database.GetCollection<Product>(settings.ProductsStoreCollectionName);
+            _products = database.GetCollection<Product>(settings.ProductsCollectionName);
         }
 
         public async Task CreateProductAsync(Product product)

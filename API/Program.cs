@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using API.Data;
+using API.Data.Seed;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,7 +21,9 @@ namespace API
 
                 try
                 {
-                    DataStoreContext dataStoreContext = services.GetRequiredService<DataStoreContext>();
+                    SeedProducts products = services.GetRequiredService<SeedProducts>();
+                    await products.SeedData();
+                    // DataStoreContext dataStoreContext = services.GetRequiredService<DataStoreContext>();
                     // await dataStoreContext.Database.EnsureDeletedAsync();
                     // await dataStoreContext.Database.MigrateAsync();
                     // await SeedDataContext.SeedAsync(dataStoreContext, loggerFactory);
@@ -32,8 +34,10 @@ namespace API
                     logger.LogError(exception, "An error occured during migration");
                 }
 
-                host.Run();
+
             }
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

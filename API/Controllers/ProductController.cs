@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
+using API.Data;
 using API.DTO;
 using API.Entities;
-using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,11 +10,11 @@ namespace API.Controllers
     [Route("v1/[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly IProductService _repository;
+        private readonly ProductService _productService;
 
-        public ProductController(IProductService repository)
+        public ProductController(ProductService productService)
         {
-            _repository = repository;
+            _productService = productService;
         }
 
         [HttpPost]
@@ -31,7 +31,7 @@ namespace API.Controllers
                 Price = form.Price
             };
 
-            await _repository.CreateProductAsync(newProduct);
+            await _productService.CreateProductAsync(newProduct);
 
             return Ok();
         }
@@ -39,7 +39,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDTO>> GetProduct(int id)
         {
-            Product product = await _repository.GetProductByIdAsync(id);
+            Product product = await _productService.GetProductByIdAsync(id);
 
             if (product == null)
             {
@@ -59,7 +59,7 @@ namespace API.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateProduct([FromForm] ProductDetails form, int id)
         {
-            Product product = await _repository.GetProductByIdAsync(id);
+            Product product = await _productService.GetProductByIdAsync(id);
 
             if (product == null)
             {
@@ -78,7 +78,7 @@ namespace API.Controllers
 
             product.Name = form.Name;
 
-            await _repository.UpdateProductAsync(product);
+            await _productService.UpdateProductAsync(product);
 
             return Ok();
         }
@@ -86,14 +86,14 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteProduct(int id)
         {
-            Product product = await _repository.GetProductByIdAsync(id);
+            Product product = await _productService.GetProductByIdAsync(id);
 
             if (product == null)
             {
                 return NotFound();
             }
 
-            await _repository.DeleteProductAsync(product);
+            await _productService.DeleteProductByIdAsync(id);
 
             return Ok();
         }

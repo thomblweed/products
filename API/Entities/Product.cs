@@ -6,7 +6,7 @@ namespace API.Entities
     public class Product : ProductDetails
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        // [BsonRepresentation(BsonType.ObjectId)]
         public int Id { get; set; }
     }
 }

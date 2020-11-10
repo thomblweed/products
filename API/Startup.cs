@@ -1,4 +1,6 @@
 using API.Config;
+using API.Data;
+using API.Data.Seed;
 using API.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,10 +23,13 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSwaggerGen();
+
             services.Configure<ProductsStoreDatabaseSettings>(
                 _config.GetSection(nameof(ProductsStoreDatabaseSettings)));
             services.AddSingleton<IProductsStoreDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<ProductsStoreDatabaseSettings>>().Value);
+            services.AddSingleton<ProductService>();
+
             services.AddControllers();
         }
 
