@@ -14,11 +14,12 @@ namespace API.Data.Seed
         {
             MongoClient client = new MongoClient(settings.ConnectionString);
             IMongoDatabase database = client.GetDatabase(settings.DatabaseName);
+            database.DropCollection(settings.ProductsCollectionName);
 
             _products = database.GetCollection<Product>(settings.ProductsCollectionName);
         }
 
-        public async Task SeedData()
+        public async Task SeedDataAsync()
         {
             List<Product> baseProducts = new List<Product>
             {

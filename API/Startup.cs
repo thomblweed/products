@@ -33,7 +33,7 @@ namespace API
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env, IProductsStoreDatabaseSettings productsStoreDatabaseSettings)
         {
             app.UseSwagger();
 
@@ -44,6 +44,8 @@ namespace API
 
             if (env.IsDevelopment())
             {
+                SeedProducts seed = new SeedProducts(productsStoreDatabaseSettings);
+                await seed.SeedDataAsync();
                 app.UseDeveloperExceptionPage();
             }
 
