@@ -19,7 +19,7 @@ namespace API.Data.Seed
             _products = database.GetCollection<Product>(settings.ProductsCollectionName);
         }
 
-        public async Task SeedDataAsync()
+        public void SeedData()
         {
             List<Product> baseProducts = new List<Product>
             {
@@ -43,7 +43,7 @@ namespace API.Data.Seed
                 }
             };
 
-            await _products.InsertManyAsync(baseProducts);
+            _products.InsertMany(baseProducts);
         }
     }
 }
